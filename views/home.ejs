@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous" />
+      <link rel="stylesheet" href="/app.css">
+  </head>
+  <body>
+    <!-- navbar  -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search" />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+    <!-- navbar  -->
+
+    <!-- hero section  -->
+    <div class="container pt-4">
+      <div class="row m-auto">
+        <form
+          action="http://localhost:8000/addBlog"
+          method="post"
+          enctype="multipart/form-data"
+          class="col-md-6 mx-auto border p-3">
+          <label for="">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id=""
+            class="form-control"
+            placeholder="Title" />
+          <label for="">Image</label>
+          <input
+            type="file"
+            name="image"
+            id=""
+            class="form-control"
+            placeholder="Image URL" />
+          <label for="">Body:</label>
+          <textarea
+            name="body"
+            id=""
+            cols="30"
+            rows="10"
+            class="form-control"
+            placeholder="Body"></textarea>
+          <button type="submit" class="btn btn-primary mt-3 btn-block">
+            Add Blog
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- hero section  -->
+
+    <!-- All Blogs  -->
+    <div class="container py-5 mt-5">
+      <h3 class="text-center pb-3">All Blogs</h3>
+      <div class="row">
+        <% if (blogs.length == 0) { %>
+        <div class="col-12">
+          <p class="text-center alert alert-danger">No blog available</p>
+        </div>
+        <% } else { %> <% blogs.forEach(function(blog, index) { %>
+        <div class="col-md-4 d-flex">
+          <div class="card mb-4 w-100">
+            <div class="card-header">
+              Blog <span class="badge badge-success"><%= index + 1 %></span>
+            </div>
+            <div class="card-body">
+              <img
+                src="<%= blog.image %>"
+                class="card-img-top w-100 h-50"
+                alt="Blog Image" />
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p class="card-text"><%= blog.body %></p>
+              <small class="card-text"><%= blog.date.toLocaleString()%></small>
+              <!-- <form
+                action="/deleteBlog/<%= blog._id %>?_method=DELETE"
+                method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form> -->
+              <div class="pt-3 d-flex justify-content-between align-items-center test">
+                <button
+                  class="btn btn-danger w-50 delete-btn btn-block"
+                  data-id="<%= blog._id %>">
+                  Delete
+                </button>
+                <a
+                  href="/editBlog/<%= blog._id %>"
+                  class="btn btn-warning w-50 btn-block ml-2 mt-0 ">
+                  Edit
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% })}; %>
+      </div>
+    </div>
+
+    <!-- All Blogs  -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+      integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+      crossorigin="anonymous"></script>
+    <script>
+      document.querySelectorAll(".delete-btn").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const id = btn.getAttribute("data-id");
+          if (confirm("Are you sure you want to delete this blog?")) {
+            const res = await fetch(`/deleteBlog/${id}`, {
+              method: "DELETE",
+            });
+
+            if (res.ok) {
+              // حذف العنصر من DOM مباشرة بدون إعادة تحميل الصفحة
+              btn.closest(".col-md-4").remove();
+            } else {
+              alert("Failed to delete blog.");
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
